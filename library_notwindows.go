@@ -5,6 +5,8 @@ package opencl
 import (
 	"errors"
 	"runtime"
+	
+	"github.com/ebitengine/purego"
 )
 
 func getOpenCLPath() (string, error) {
