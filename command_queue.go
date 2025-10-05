@@ -74,13 +74,13 @@ func (cq CommandQueue) EnqueueReadImage(image Buffer, blockingRead bool, data *I
 }
 
 func (cq CommandQueue) EnqueueWriteBuffer(buffer Buffer, blockingWrite bool, data *BufferData) error {
-	st := enqueueReadBuffer(
+	// 修复Bug，调整为写缓冲区
+	st := enqueueWriteBuffer(
 		cq, buffer, blockingWrite, 0, clSize(data.DataSize), data.Pointer, 0, nil, nil,
 	)
 	if st != CL_SUCCESS {
-		return errors.New("oops at enqueue nd range kernel")
+		return errors.New("oops at enqueue write buffer: " + strconv.FormatInt(int64(st), 10))
 	}
-
 	return nil
 }
 
